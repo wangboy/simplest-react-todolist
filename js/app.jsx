@@ -43,15 +43,47 @@ let TodoBox = React.createClass({
   },
   render: function () {
     var items = this.state.data.map(function (item) {
-      return <li>{item.task}</li>
+      return
+        <TodoItem/>
+//TODO
+      // <li>{item.task}</li>
     })
     return (
       <div className="well">
         {items}
         <TodoForm
-          submitTask = {this.handleSubmit}
+          submitTask={this.handleSubmit}
         ></TodoForm>
       </div>
+    )
+  }
+})
+
+let TodoItem = React.createClass({
+  toggleComplete: function (e) {
+
+  },
+  deleteTask:function (e) {
+
+  },
+  render: function () {
+    let checked = false
+    let task = <p>{" task "}</p>
+    return (
+      <li className="list-group-item">
+        <input type="checkbox"
+               checked={checked}
+               onChange={this.toggleComplete}
+               className="pull-left"/>
+        {task}
+        <div className="pull-right">
+          <button type="button"
+                  className="btn btn-xs close"
+                  onClick={this.deleteTask}
+                  ref={it => this._deleteBtn = it}>Delete</button>
+        </div>
+
+      </li>
     )
   }
 })
