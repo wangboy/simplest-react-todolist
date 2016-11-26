@@ -16,7 +16,7 @@ let TodoBox = React.createClass({
     let data = this.state.data
     data.forEach(function (item) {
       if (item.id == taskId) {
-        item.state = true
+        item.state = !item.state
       }
     })
     this.setState({data})
@@ -43,11 +43,17 @@ let TodoBox = React.createClass({
   },
   render: function () {
     var items = this.state.data.map(function (item) {
-      return
-        <TodoItem/>
-//TODO
+      return (
+        <TodoItem
+            task={item}
+            delete={this.handleDelete}
+            finish={this.handleFinish}
+        />
+
+        )
+    },this)
       // <li>{item.task}</li>
-    })
+      console.log(" todo items " + items)
     return (
       <div className="well">
         {items}
@@ -61,16 +67,32 @@ let TodoBox = React.createClass({
 
 let TodoItem = React.createClass({
   toggleComplete: function (e) {
-
+      this.props.finish(this.props.task.id)
   },
   deleteTask:function (e) {
-
+      this.props.delete(this.props.task.id)
   },
+    mouseOver:function (e) {
+        this._deleteBtn.style.display = "inline"
+    },
+    mouseOut:function (e) {
+        this._deleteBtn.style.display = "none"
+    },
   render: function () {
-    let checked = false
-    let task = <p>{" task "}</p>
+      let task = this.props.task.task
+    let checked = this.props.task.state
+    let clz = "list-group-item"
+    if (checked === true) {
+        clz = "list-group-item-success"
+        task = <s>{this.props.task.task}</s>
+    }
+
+      console.log(" render task " + this.props.task.task)
     return (
-      <li className="list-group-item">
+      <li className={clz}
+          onMouseOver={this.mouseOver}
+          onMouseOut={this.mouseOut}>
+
         <input type="checkbox"
                checked={checked}
                onChange={this.toggleComplete}
