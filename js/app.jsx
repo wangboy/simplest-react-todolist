@@ -45,15 +45,15 @@ let TodoBox = React.createClass({
     var items = this.state.data.map(function (item) {
       return (
         <TodoItem
-            task={item}
-            delete={this.handleDelete}
-            finish={this.handleFinish}
+          task={item}
+          delete={this.handleDelete}
+          finish={this.handleFinish}
         />
 
-        )
-    },this)
-      // <li>{item.task}</li>
-      console.log(" todo items " + items)
+      )
+    }, this)
+    // <li>{item.task}</li>
+    console.log(" todo items " + items)
     return (
       <div className="well">
         {items}
@@ -67,27 +67,27 @@ let TodoBox = React.createClass({
 
 let TodoItem = React.createClass({
   toggleComplete: function (e) {
-      this.props.finish(this.props.task.id)
+    this.props.finish(this.props.task.id)
   },
-  deleteTask:function (e) {
-      this.props.delete(this.props.task.id)
+  deleteTask: function (e) {
+    this.props.delete(this.props.task.id)
   },
-    mouseOver:function (e) {
-        this._deleteBtn.style.display = "inline"
-    },
-    mouseOut:function (e) {
-        this._deleteBtn.style.display = "none"
-    },
+  mouseOver: function (e) {
+    this._deleteBtn.style.display = "inline"
+  },
+  mouseOut: function (e) {
+    this._deleteBtn.style.display = "none"
+  },
   render: function () {
-      let task = this.props.task.task
+    let task = this.props.task.task
     let checked = this.props.task.state
     let clz = "list-group-item"
     if (checked === true) {
-        clz = "list-group-item-success"
-        task = <s>{this.props.task.task}</s>
+      clz = "list-group-item-success"
+      task = <s>{this.props.task.task}</s>
     }
 
-      console.log(" render task " + this.props.task.task)
+    console.log(" render task " + this.props.task.task)
     return (
       <li className={clz}
           onMouseOver={this.mouseOver}
@@ -102,7 +102,8 @@ let TodoItem = React.createClass({
           <button type="button"
                   className="btn btn-xs close"
                   onClick={this.deleteTask}
-                  ref={it => this._deleteBtn = it}>Delete</button>
+                  ref={it => this._deleteBtn = it}>Delete
+          </button>
         </div>
 
       </li>
